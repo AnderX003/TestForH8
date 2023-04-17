@@ -1,13 +1,13 @@
 ﻿namespace FieldGeneration
 {
-    public class Cell
+    public class GridCell : IGridCell
     {
         public int X { get; }
         public int Y { get; }
         public bool IsOccupied { get; private set; }
         public Rectangle Rectangle { get; private set; }
 
-        public Cell(int x, int y)
+        public GridCell(int x, int y)
         {
             X = x;
             Y = y;

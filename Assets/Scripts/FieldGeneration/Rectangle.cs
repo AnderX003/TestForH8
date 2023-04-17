@@ -1,41 +1,46 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace FieldGeneration
 {
-    public class Rectangle
+    public class Rectangle : IGridRectangle
     {
         private static int idCounter;
 
+        private GridCell mainCell;
+        private GridCell[,] cells;
         private Vector2Int rootCoord;
-        private Cell mainCell;
-        private Cell[,] cells;
         private Vector2Int size;
 
+        public Vector2Int RootCoord => rootCoord;
         public Vector2Int Size => size;
+        public IGridCell MainCell => mainCell;
+        public IEnumerable<IGridCell> Cells => cells.Cast<IGridCell>();
         public int Id { get; }
 
-        public Rectangle(Cell rootCell)
+        public Rectangle(GridCell rootCell)
         {
             rootCoord = new Vector2Int(rootCell.X, rootCell.Y);
             Id = idCounter++;
         }
 
-        public void Build(Cell[,] field, Vector2Int fieldSize, RectangleGenerationLimits limits)
+        public void Build(GridCell[,] grid, Vector2Int gridSize, RectangleGenerationLimits limits)
         {
-            var maxSize = CalculateMaxSize(field, fieldSize);
+            var maxSize = CalculateMaxSize(grid, gridSize);
             var maxArea = maxSize.x * maxSize.y;
             Assert.AreNotEqual(maxArea, 1);
             GenerateRectangleSize(limits, maxSize);
-            PickCells(field);
+            PickCells(grid);
             PickMainCell();
         }
 
         [Pure]
-        private Vector2Int CalculateMaxSize(Cell[,] field, Vector2Int fieldSize)
+        private Vector2Int CalculateMaxSize(GridCell[,] grid, Vector2Int gridSize)
         {
-            var maxCoords = FindMaxRectangleCoords(field, fieldSize);
+            var maxCoords = FindMaxRectangleCoords(grid, gridSize);
             var maxSize = new Vector2Int(
                 maxCoords.x - rootCoord.x + 1,
                 maxCoords.y - rootCoord.y + 1);
@@ -43,16 +48,16 @@ namespace FieldGeneration
         }
 
         [Pure]
-        private Vector2Int FindMaxRectangleCoords(Cell[,] field, Vector2Int fieldSize)
+        private Vector2Int FindMaxRectangleCoords(GridCell[,] grid, Vector2Int gridSize)
         {
             var maxCoords = new Vector2Int(
-                fieldSize.x - 1,
+                gridSize.x - 1,
                 rootCoord.y);
-            if (rootCoord.y == fieldSize.y - 1) return maxCoords;
+            if (rootCoord.y == gridSize.y - 1) return maxCoords;
 
-            for (int y = rootCoord.y + 1; y < fieldSize.y; y++)
+            for (int y = rootCoord.y + 1; y < gridSize.y; y++)
             {
-                if (!field[rootCoord.x, y].IsOccupied)
+                if (!grid[rootCoord.x, y].IsOccupied)
                 {
                     maxCoords.y++;
                 }
@@ -91,15 +96,15 @@ namespace FieldGeneration
                 absoluteY - rootCoord.y);
         }
 
-        private void PickCells(Cell[,] field)
+        private void PickCells(GridCell[,] grid)
         {
-            cells = new Cell[size.x, size.y];
+            cells = new GridCell[size.x, size.y];
             for (int x = rootCoord.x; x < rootCoord.x + size.x; x++)
             {
                 for (var y = rootCoord.y; y < rootCoord.y + size.y; y++)
                 {
                     var localCoords = LocalCoords(x, y);
-                    var cell = field[x, y];
+                    var cell = grid[x, y];
                     cell.AttachRectangle(this);
                     cells[localCoords.x, localCoords.y] = cell;
                 }
@@ -115,7 +120,7 @@ namespace FieldGeneration
 
         public enum AddSide : byte { Down, Right, Left }
 
-        public void AddExtraCell(Cell[,] field, AddSide addSide)
+        public void AddExtraCell(GridCell[,] grid, AddSide addSide)
         {
             switch (addSide)
             {
@@ -130,7 +135,7 @@ namespace FieldGeneration
                     size.y++;
                     break;
             }
-            PickCells(field);
+            PickCells(grid);
             PickMainCell();
         }
     }

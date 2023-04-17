@@ -10,3 +10,4 @@ namespace FieldGeneration
         [field: SerializeField] public int maxRectangleLength { get; private set; } = 4;
     }
 }
+    
