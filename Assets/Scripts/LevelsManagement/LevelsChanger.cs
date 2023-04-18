@@ -17,5 +17,10 @@ namespace LevelsManagement
         {
             SceneManager.LoadScene(mainSceneIndex);
         }
+
+        public void RestartLevel()
+        {
+            
+        }
     }
 }

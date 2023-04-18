@@ -7,6 +7,7 @@ namespace LevelsManagement
     {
         [SerializeField] private LevelsProgression levelsProgression;
         [SerializeField] private LevelsChanger levelsChanger;
+        private bool restarting;
 
         protected override void Awake()
         {
@@ -19,12 +20,21 @@ namespace LevelsManagement
 
         public LevelParams GetLevelParams()
         {
-            return levelsProgression.GetNextLevelParams();
+            return restarting 
+                ? levelsProgression.GetLevelParams()
+                : levelsProgression.GetNextLevelParams();
         }
 
         public void LoadNextLevel()
         {
+            restarting = false;
             levelsChanger.LoadNextLevel();
+        }
+
+        public void RestartLevel()
+        {
+            restarting = true;
+            levelsChanger.RestartLevel();
         }
     }
 }

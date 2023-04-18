@@ -18,6 +18,15 @@ namespace LevelsManagement
             gridSize = minGridSize;
         }
 
+        public LevelParams GetLevelParams()
+        {
+            return new LevelParams
+            {
+                GridSize = gridSize,
+                GenerationLimits = generationLimits
+            };
+        }
+
         public LevelParams GetNextLevelParams()
         {
             return new LevelParams
