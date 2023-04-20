@@ -17,7 +17,6 @@ namespace SceneManagement
 
         public void Win()
         {
-            Time.timeScale = 0f;
             OnWin?.Invoke();
         }
 
@@ -33,13 +32,11 @@ namespace SceneManagement
 
         public void Pause()
         {
-            Time.timeScale = 0f;
             OnPause?.Invoke();
         }
 
         public void Resume()
         {
-            Time.timeScale = 1f;
             OnResume?.Invoke();
         }
     }

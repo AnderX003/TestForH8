@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameplayLogic.Cells;
+using SceneManagement;
 using UnityEngine;
 
 namespace GameplayLogic.PlacedRectangles
@@ -12,17 +13,18 @@ namespace GameplayLogic.PlacedRectangles
         [SerializeField] private float hideInterval;
 
         private List<PlacedRectangle> rectangles;
-        private GameGrid gameGrid;
+        private GameGrid grid;
 
-        public void Init(GameGrid gameGrid)
+        public void Init()
         {
-            this.gameGrid = gameGrid;
-            rectangles = new List<PlacedRectangle>(gameGrid.GridRectanglesCount);
+            grid = SceneC.Instance.GameGrid;
+            rectangles = new List<PlacedRectangle>(grid.GridRectanglesCount);
         }
 
         public void Place(Cell startCell, Cell currentCell)
         {
-            var rectangle = new PlacedRectangle(gameGrid, startCell, currentCell);
+            var grid = SceneC.Instance.GameGrid;
+            var rectangle = new PlacedRectangle(grid, startCell, currentCell);
             rectangles.Add(rectangle);
             rectangle.Place(showInterval);
         }

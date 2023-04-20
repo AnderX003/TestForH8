@@ -56,7 +56,9 @@ namespace TouchLogic
             rectanglePreview.Hide();
             if (canPlace)
             {
-                SceneC.Instance.RectanglesPlacer.Place(startCell, currentCell);
+                var sceneC = SceneC.Instance;
+                sceneC.RectanglesPlacer.Place(startCell, currentCell);
+                sceneC.GameGrid.CheckWin();
             }
         }
     }

@@ -42,8 +42,8 @@ namespace SceneManagement
             GameGrid.Init(levelParams);
 
             var placingChecker = new RectanglePlacingChecker();
-            placingChecker.Init(GameGrid);
-            RectanglesPlacer.Init(GameGrid);
+            placingChecker.Init();
+            RectanglesPlacer.Init();
             touchHandler.Init(rectanglePreview, placingChecker);
         }
 

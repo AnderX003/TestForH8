@@ -59,5 +59,15 @@ namespace GameplayLogic
             gameCell.Arrange(cellPlacementConfig);
             return gameCell;
         }
+
+        public void CheckWin()
+        {
+            for (int x = 0; x < gridSize.x; x++)
+            for (var y = 0; y < gridSize.y; y++)
+            {
+                if (!gameCells[x, y].InPlacedRectangle) return;
+            }
+            SceneC.Instance.GameLoopC.Win();
+        }
     }
 }

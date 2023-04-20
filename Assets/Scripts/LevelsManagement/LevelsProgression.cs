@@ -30,7 +30,7 @@ namespace LevelsManagement
         {
             if (gridSize.x <= maxGridSize.x && gridSize.y <= maxGridSize.y)
             {
-                if (gridSize.x >= gridSize.y)
+                if (gridSize.x <= gridSize.y)
                 {
                     gridSize.x++;
                 }

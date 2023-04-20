@@ -2,6 +2,7 @@
 using GameplayLogic.Cells;
 using GridGeneration;
 using Helpers.ExtensionsAndDS;
+using SceneManagement;
 
 namespace GameplayLogic
 {
@@ -9,9 +10,9 @@ namespace GameplayLogic
     {
         private GameGrid gameGrid;
 
-        public void Init(GameGrid gameGrid)
+        public void Init()
         {
-            this.gameGrid = gameGrid;
+            gameGrid = SceneC.Instance.GameGrid;
         }
 
         public bool CheckPlacement(Cell startGameCell, Cell currentGameCell)
