@@ -2,6 +2,7 @@
 using System.Collections;
 using GameplayLogic.Cells;
 using GridGeneration;
+using Helpers.ExtensionsAndDS;
 using LevelsManagement;
 using SceneManagement;
 using SceneManagement.Pools;
@@ -31,6 +32,7 @@ namespace GameplayLogic
         {
             GenerateGrid(levelParams);
             CreateCells();
+            AlignParent();
         }
 
         private void GenerateGrid(LevelParams levelParams)
@@ -58,6 +60,17 @@ namespace GameplayLogic
             gameCell.Init(gridCell);
             gameCell.Arrange(cellPlacementConfig);
             return gameCell;
+        }
+
+        private void AlignParent()
+        {
+            var cellStart = gameCells[0, 0];
+            var cellEnd = gameCells[gridSize.x - 1, gridSize.y - 1];
+            var averagePos = (cellStart.GetPosition() +
+                              cellEnd.GetPosition()) / 2f;
+            cellsParent.position = cellsParent.position
+                .WithX(-averagePos.x)
+                .WithZ(-averagePos.z);
         }
 
         public void CheckWin()
