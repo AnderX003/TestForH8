@@ -1,10 +1,11 @@
-﻿using GridGeneration;
+﻿using GameplayLogic.PlacedRectangles;
+using GridGeneration;
 using Helpers.Pooling;
 using SceneManagement;
 using TMPro;
 using UnityEngine;
 
-namespace GameplayLogic
+namespace GameplayLogic.Cells
 {
     public class Cell : MonoBehaviour, IPoolable
     {
@@ -16,6 +17,8 @@ namespace GameplayLogic
         public IGridCell GridCell => gridCell;
         public bool IsMain => gridCell.IsMain;
         public Rectangle Rectangle => gridCell.Rectangle;
+        public bool InPlacedRectangle { get; private set; }
+        public PlacedRectangle PlacedRectangle { get; private set; }
 
         public int RectangleSize
         {
@@ -72,6 +75,18 @@ namespace GameplayLogic
         public Vector2Int GetGridCoords()
         {
             return gridCell.Coords;
+        }
+
+        public void BindPlacedRectangle(PlacedRectangle placedRectangle)
+        {
+            InPlacedRectangle = true;
+            PlacedRectangle = placedRectangle;
+        }
+
+        public void UnBindPlacedRectangle()
+        {
+            InPlacedRectangle = false;
+            PlacedRectangle = null;
         }
     }
 }

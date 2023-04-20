@@ -1,10 +1,10 @@
 ﻿using GameplayLogic;
-using GameplayLogic.Cells;
+using GameplayLogic.PlacedRectangles;
 using Helpers.Pooling;
 
 namespace SceneManagement.Pools
 {
-    public class CellsPool : BasePool<Cell>
+    public class PlacedCellsPool : BasePool<PlacedCell>
     {
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
 using GameplayLogic;
+using GameplayLogic.Cells;
+using GameplayLogic.PlacedRectangles;
 using SceneManagement;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TouchLogic
 {
@@ -12,10 +15,11 @@ namespace TouchLogic
         public event Action<Cell> OnChangedCell;
         public event Action OnUnTouchedCell;
 
-        [SerializeField] private LayerMask cellsLayer;
+        [SerializeField] private LayerMask hittableLayer;
         private bool isTouching;
         private Camera cam;
         private CellsFinder cellsFinder;
+        private PlacedCellsFinder placedCellsFinder;
 
         private bool started;
         private Cell startCell;
@@ -28,6 +32,7 @@ namespace TouchLogic
             gameUI.OnDragTriggerDown += OnDragDown;
             gameUI.OnDragTriggerUp += OnDragUp;
             cellsFinder = SceneC.Instance.CellsFinder;
+            placedCellsFinder = SceneC.Instance.PlacedCellsFinder;
         }
 
         private void OnDragDown()
@@ -50,9 +55,14 @@ namespace TouchLogic
         public void Update()
         {
             if (!isTouching) return;
+            const float maxDistance = 999f;
             var ray = cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit, 999f, cellsLayer) &&
-                cellsFinder.TryFindCellByCollider(hit.collider, out var cell))
+            if (!Physics.Raycast(ray, out var hit, maxDistance, hittableLayer)) return;
+            if (placedCellsFinder.TryFindCellByCollider(hit.collider, out var placedCell))
+            {
+                //HandlePlacedCellRaycast(placedCell);
+            }
+            else if (cellsFinder.TryFindCellByCollider(hit.collider, out var cell))
             {
                 HandleCellRaycast(cell);
             }
@@ -60,6 +70,7 @@ namespace TouchLogic
 
         private void HandleCellRaycast(Cell cell)
         {
+            if (cell.InPlacedRectangle) return;
             if (!started)
             {
                 started = true;

@@ -1,4 +1,6 @@
 ﻿using GameplayLogic;
+using GameplayLogic.Cells;
+using GameplayLogic.PlacedRectangles;
 using GameplayLogic.PreviewRectangle;
 using Helpers;
 using LevelsManagement;
@@ -14,6 +16,8 @@ namespace SceneManagement
         [field: SerializeField] public UIHolder UIHolder { get; private set; }
         [field: SerializeField] public PoolsHolder PoolsHolder { get; private set; }
         [field: SerializeField] public CellsFinder CellsFinder { get; private set; }
+        [field: SerializeField] public PlacedCellsFinder PlacedCellsFinder { get; private set; }
+        [field: SerializeField] public RectanglesPlacer RectanglesPlacer { get; private set; }
         [field: SerializeField] public CameraC CameraC { get; private set; }
         [field: SerializeField] public GameGrid GameGrid { get; private set; }
 
@@ -30,6 +34,7 @@ namespace SceneManagement
             UIHolder.Init();
             PoolsHolder.Init();
             CellsFinder.Init();
+            PlacedCellsFinder.Init();
             CameraC.Init();
             rectanglePreview.Init();
 
@@ -38,6 +43,7 @@ namespace SceneManagement
 
             var placingChecker = new RectanglePlacingChecker();
             placingChecker.Init(GameGrid);
+            RectanglesPlacer.Init(GameGrid);
             touchHandler.Init(rectanglePreview, placingChecker);
         }
 

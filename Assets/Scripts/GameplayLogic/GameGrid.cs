@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using GameplayLogic.Cells;
 using GridGeneration;
 using LevelsManagement;
 using SceneManagement;
@@ -21,6 +23,9 @@ namespace GameplayLogic
 
         public Vector2Int GridSize => gridSize;
         public IGridCell[,] GridCells => gridCells;
+        public IEnumerable GridRectangles => grid.Rectangles;
+        public int GridRectanglesCount => grid.RectanglesCount;
+        public Cell[,] GameCells => gameCells;
 
         public void Init(LevelParams levelParams)
         {

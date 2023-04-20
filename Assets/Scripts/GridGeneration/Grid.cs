@@ -15,6 +15,8 @@ namespace GridGeneration
         public IGridCell[,] Cells => cells;
         public Vector2Int GridSize => gridSize;
 
+        public int RectanglesCount => rectangles.Count;
+
         public Grid(Vector2Int gridSize)
         {
             this.gridSize = gridSize;

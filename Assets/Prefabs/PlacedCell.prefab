@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1852566832772619022}
+  - component: {fileID: 237772394662358431}
   m_Layer: 0
   m_Name: PlacedCell
   m_TagString: Untagged
@@ -33,6 +34,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &237772394662358431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852566832772619023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f18a1aaac4419a964f73abef94d350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizer:
+    scaleHideDamping: 1
+    scaleHideFrequency: 60
+    scalePunchVelocity: 1
+    scaleSpring:
+      <Frequency>k__BackingField: 15
+      <Damping>k__BackingField: 0.35
+      <Unscaled>k__BackingField: 0
+    scaleObject: {fileID: 1852566833243997450}
+  collider: {fileID: 1852566834017058964}
 --- !u!1 &1852566833243997451
 GameObject:
   m_ObjectHideFlags: 0

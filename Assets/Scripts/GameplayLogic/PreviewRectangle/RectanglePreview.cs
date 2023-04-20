@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameplayLogic.Cells;
+using UnityEngine;
 
 namespace GameplayLogic.PreviewRectangle
 {
