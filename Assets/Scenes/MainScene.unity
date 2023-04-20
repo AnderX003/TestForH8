@@ -1125,7 +1125,7 @@ MonoBehaviour:
     cellsParent: {fileID: 1719033074}
     cellPlacementConfig: {fileID: 11400000, guid: 990c260f91b7ac047a41ee548816d57a, type: 2}
   rectanglePreview: {fileID: 581821692}
-  touchHandler:
+  userActionHandler:
     touchReceiver:
       cellsLayer:
         serializedVersion: 2
@@ -1133,7 +1133,7 @@ MonoBehaviour:
       rectanglesLayer:
         serializedVersion: 2
         m_Bits: 128
-      doubleClickTimeThreshold: 0.4
+      doubleClickTimeThreshold: 0.5
 --- !u!4 &1484651369
 Transform:
   m_ObjectHideFlags: 0
@@ -1307,13 +1307,43 @@ MonoBehaviour:
     gamePanel: {fileID: 2002151245}
     dragTrigger: {fileID: 145893863}
     pauseButton: {fileID: 2102038549}
+    buttonShowParams:
+      Duration: 0.2
+      Ease: 3
+    buttonHideParams:
+      Duration: 0.1
+      Ease: 2
   <PauseUI>k__BackingField:
-    pausePanel: {fileID: 159788414}
+    pausePanel: {fileID: 159788416}
     resumeButton: {fileID: 1478304016}
     restartButton: {fileID: 1506268002}
+    restartButtonAppearDelay: 0.1
+    panelShowParams:
+      Duration: 0.15
+      Ease: 1
+    buttonsShowParams:
+      Duration: 0.35
+      Ease: 27
+    panelHideParams:
+      Duration: 0.15
+      Ease: 0
+    buttonsHideParams:
+      Duration: 0.15
+      Ease: 2
   <WinUI>k__BackingField:
-    WinPanel: {fileID: 1737110423}
+    winPanel: {fileID: 1737110425}
     nextLevelButton: {fileID: 1686851337}
+    youWinText: {fileID: 1908432901}
+    showDelay: 0.7
+    panelShowParams:
+      Duration: 0.3
+      Ease: 1
+    textShowParams:
+      Duration: 0.3
+      Ease: 3
+    buttonShowParams:
+      Duration: 0.35
+      Ease: 27
 --- !u!114 &1555745392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2002,9 +2032,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20, y: -50}
+  m_AnchoredPosition: {x: -94.99989, y: -124.99994}
   m_SizeDelta: {x: 150, y: 150}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2102038549
 MonoBehaviour:
   m_ObjectHideFlags: 0

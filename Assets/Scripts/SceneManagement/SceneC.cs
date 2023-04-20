@@ -21,7 +21,7 @@ namespace SceneManagement
         [field: SerializeField] public GameGrid GameGrid { get; private set; }
 
         [SerializeField] private RectanglePreview rectanglePreview;
-        [SerializeField] private TouchHandler touchHandler;
+        [SerializeField] private UserActionHandler userActionHandler;
 
         public GameLoopC GameLoopC { get; private set; }
 
@@ -42,12 +42,12 @@ namespace SceneManagement
             var placingChecker = new RectanglePlacingChecker();
             placingChecker.Init();
             RectanglesPlacer.Init();
-            touchHandler.Init(rectanglePreview, placingChecker);
+            userActionHandler.Init(rectanglePreview, placingChecker);
         }
 
         private void Update()
         {
-            touchHandler.Update();
+            userActionHandler.Update();
         }
     }
 }

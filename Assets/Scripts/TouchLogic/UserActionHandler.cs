@@ -9,7 +9,7 @@ using UnityEngine;
 namespace TouchLogic
 {
     [Serializable]
-    public class TouchHandler
+    public class UserActionHandler
     {
         [SerializeField] private TouchReceiver touchReceiver;
         private RectanglePreview rectanglePreview;

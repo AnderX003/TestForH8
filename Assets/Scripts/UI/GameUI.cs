@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Helpers.ExtensionsAndDS;
 using SceneManagement;
 using UnityEngine;
@@ -16,6 +17,10 @@ namespace UI
         [SerializeField] private GameObject gamePanel;
         [SerializeField] private EventTrigger dragTrigger;
         [SerializeField] private Button pauseButton;
+        [SerializeField] private DoAnimationParams<Ease> buttonShowParams;
+        [SerializeField] private DoAnimationParams<Ease> buttonHideParams;
+
+        private TweenCallback disableAction;
 
         public void Init()
         {
@@ -23,8 +28,10 @@ namespace UI
             dragTrigger.AddEntry(EventTriggerType.PointerDown, DragTriggerDown);
             dragTrigger.AddEntry(EventTriggerType.PointerUp, DragTriggerUp);
             pauseButton.onClick.AddListener(PauseButtonClick);
-            sceneC.GameLoopC.OnPause += OnPause;
-            sceneC.GameLoopC.OnResume += OnResume;
+            var gameLoopC = sceneC.GameLoopC;
+            gameLoopC.OnPause += OnPause;
+            gameLoopC.OnResume += OnResume;
+            gameLoopC.OnWin += OnWin;
         }
 
         public void DragTriggerDown(BaseEventData _)
@@ -44,12 +51,39 @@ namespace UI
 
         private void OnPause()
         {
+            Hide();
+        }
+
+        private void OnWin()
+        {
+            Hide();
+        }
+
+        private void Hide()
+        {
+            disableAction ??= Disable;
+            pauseButton.transform
+                .DOScale(Vector3.zero, buttonHideParams.Duration)
+                .SetEase(buttonHideParams.Ease)
+                .OnComplete(disableAction);
+        }
+
+        private void Disable()
+        {
             gamePanel.SetActive(false);
         }
 
         private void OnResume()
         {
+            Show();
+        }
+
+        private void Show()
+        {
             gamePanel.SetActive(true);
+            pauseButton.transform
+                .DOScale(Vector3.one, buttonShowParams.Duration)
+                .SetEase(buttonShowParams.Ease);
         }
     }
 }
