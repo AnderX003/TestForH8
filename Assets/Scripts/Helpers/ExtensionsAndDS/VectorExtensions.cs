@@ -11,6 +11,7 @@ namespace Helpers.ExtensionsAndDS
             absVector.y = Mathf.Abs(vector.y);
             return absVector;
         }
+
         public static Vector2Int Abs(this Vector2Int vector)
         {
             var absVector = new Vector2Int();

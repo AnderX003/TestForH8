@@ -26,21 +26,17 @@ namespace GameplayLogic.PlacedRectangles
                 Mathf.Abs(startGridCell.Y - endGridCell.Y) + 1);
             placedCells = new PlacedCell[size.x, size.y];
             cells = new Cell[size.x, size.y];
-            var gameCells = gameGrid.GameCells;
 
-            IterateSubMatrix(
-                startGridCell.X, startGridCell.Y,
-                endGridCell.X, endGridCell.Y,
-                (x, y, xLocal, yLocal) =>
-                {
-                    var gameCell = gameCells[x, y];
-                    cells[xLocal, yLocal] = gameCell;
-                    gameCell.BindPlacedRectangle(this);
-                });
+            BindCells(gameGrid);
         }
 
-        private void IterateSubMatrix(int x1,int y1,int x2,int y2, Action<int, int, int, int> action)
+        private void BindCells(GameGrid gameGrid)
         {
+            var gameCells = gameGrid.GameCells;
+            var x1 = startCell.GridCell.X;
+            var y1 = startCell.GridCell.Y;
+            var x2 = endCell.GridCell.X;
+            var y2 = endCell.GridCell.Y;
             var dx = Math.Sign(x2 - x1);
             var dy = Math.Sign(y2 - y1);
             if (dy == 0) dy = 1;
@@ -48,7 +44,9 @@ namespace GameplayLogic.PlacedRectangles
             for (int x = x1, xLocal = 0; x != x2 + dx; x += dx, xLocal++)
             for (int y = y1, yLocal = 0; y != y2 + dy; y += dy, yLocal++)
             {
-                action(x, y, xLocal, yLocal);
+                var gameCell = gameCells[x, y];
+                cells[xLocal, yLocal] = gameCell;
+                gameCell.BindPlacedRectangle(this);
             }
         }
 
@@ -92,20 +90,6 @@ namespace GameplayLogic.PlacedRectangles
                 placedCells[x, y].Disable();
                 cells[x, y].UnBindPlacedRectangle();
             }
-            /*var x1 = startCell.GridCell.X;
-            var y1 = startCell.GridCell.Y;
-            var x2 = endCell.GridCell.X;
-            var y2 = endCell.GridCell.Y;
-            var dx = Math.Sign(x2 - x1);
-            var dy = Math.Sign(y2 - y1);
-            if (dy == 0) dy = 1;
-            if (dx == 0) dx = 1;
-            for (int x = x1, xLocal = 0; x != x2 + dx; x += dx, xLocal++)
-            for (int y = y1, yLocal = 0; y != y2 + dy; y += dy, yLocal++)
-            {
-                placedCells[xLocal, yLocal].Disable();
-                cells[x, y].UnBindPlacedRectangle();
-            }*/
             SceneC.Instance.StartCoroutine(HideSequence(hideInterval));
         }
 

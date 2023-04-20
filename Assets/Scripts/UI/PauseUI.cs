@@ -1,7 +1,6 @@
 using System;
 using SceneManagement;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI

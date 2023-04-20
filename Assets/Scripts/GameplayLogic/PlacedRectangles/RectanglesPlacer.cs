@@ -23,7 +23,6 @@ namespace GameplayLogic.PlacedRectangles
 
         public void Place(Cell startCell, Cell currentCell)
         {
-            var grid = SceneC.Instance.GameGrid;
             var rectangle = new PlacedRectangle(grid, startCell, currentCell);
             rectangles.Add(rectangle);
             rectangle.Place(showInterval);

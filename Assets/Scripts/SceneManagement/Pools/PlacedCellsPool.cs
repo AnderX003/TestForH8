@@ -1,5 +1,4 @@
-﻿using GameplayLogic;
-using GameplayLogic.PlacedRectangles;
+﻿using GameplayLogic.PlacedRectangles;
 using Helpers.Pooling;
 
 namespace SceneManagement.Pools

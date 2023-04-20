@@ -18,7 +18,7 @@ namespace GameplayLogic
         public bool CheckPlacement(Cell startGameCell, Cell currentGameCell)
         {
             var startCell = startGameCell.GridCell;
-            var currentCell =currentGameCell.GridCell;
+            var currentCell = currentGameCell.GridCell;
             if (startCell == currentCell) return false;
             if (!CellsAmountMatches(startCell, currentCell)) return false;
             if (!CheckMainCellsIntersection(startCell, currentCell)) return false;
