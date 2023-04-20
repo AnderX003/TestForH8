@@ -6,7 +6,7 @@ using SceneManagement.Pools;
 using UnityEngine;
 using Grid = GridGeneration.Grid;
 
-namespace GameplayObjects
+namespace GameplayLogic
 {
     [Serializable]
     public class GameGrid

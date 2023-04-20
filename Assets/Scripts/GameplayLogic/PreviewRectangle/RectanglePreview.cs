@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameplayObjects.PreviewRectangle
+namespace GameplayLogic.PreviewRectangle
 {
     public class RectanglePreview : MonoBehaviour
     {

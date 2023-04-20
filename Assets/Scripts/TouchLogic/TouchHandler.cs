@@ -1,6 +1,6 @@
 ﻿using System;
-using GameplayObjects;
-using GameplayObjects.PreviewRectangle;
+using GameplayLogic;
+using GameplayLogic.PreviewRectangle;
 using SceneManagement;
 using UnityEngine;
 
@@ -36,7 +36,6 @@ namespace TouchLogic
         {
             startCell = cell;
             if (!startCell.IsMain) return;
-            Debug.Log($"OnTouchedCell {cell.name}");
             rectanglePreview.Show(cell);
             canPlace = false;
         }
@@ -44,7 +43,6 @@ namespace TouchLogic
         private void OnChangedCell(Cell cell)
         {
             if (!startCell.IsMain) return;
-            Debug.Log($"OnChangedCell {cell.name}");
             canPlace = placingChecker.CheckPlacement(startCell.GridCell, cell.GridCell);
             rectanglePreview.ChangeCell(cell, canPlace);
         }
@@ -52,7 +50,6 @@ namespace TouchLogic
         private void OnUnTouchedCell()
         {
             if (!startCell.IsMain) return;
-            Debug.Log("OnUnTouchedCell");
             rectanglePreview.Hide();
             if (canPlace)
             {

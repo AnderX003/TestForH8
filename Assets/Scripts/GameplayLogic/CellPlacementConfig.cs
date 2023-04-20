@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameplayObjects
+namespace GameplayLogic
 {
     [CreateAssetMenu(menuName = "SO/Cell Placement Config", fileName = "cellPlacementConfig")]
     public class CellPlacementConfig : ScriptableObject

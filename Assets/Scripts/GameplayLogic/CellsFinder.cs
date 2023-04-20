@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameplayObjects
+namespace GameplayLogic
 {
     [Serializable]
     public class CellsFinder

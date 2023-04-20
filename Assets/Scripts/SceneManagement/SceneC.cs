@@ -1,5 +1,5 @@
-﻿using GameplayObjects;
-using GameplayObjects.PreviewRectangle;
+﻿using GameplayLogic;
+using GameplayLogic.PreviewRectangle;
 using Helpers;
 using LevelsManagement;
 using SceneManagement.Pools;

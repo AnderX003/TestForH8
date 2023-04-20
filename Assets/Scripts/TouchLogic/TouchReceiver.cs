@@ -1,5 +1,5 @@
 ﻿using System;
-using GameplayObjects;
+using GameplayLogic;
 using SceneManagement;
 using UnityEngine;
 

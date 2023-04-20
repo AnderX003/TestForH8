@@ -1,7 +1,7 @@
 ﻿using GridGeneration;
 using Helpers.ExtensionsAndDS;
 
-namespace GameplayObjects
+namespace GameplayLogic
 {
     public class RectanglePlacingChecker
     {

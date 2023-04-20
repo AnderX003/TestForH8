@@ -4,7 +4,7 @@ using Helpers.ExtensionsAndDS;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace GameplayObjects.PreviewRectangle
+namespace GameplayLogic.PreviewRectangle
 {
     [Serializable]
     public class RectanglePreviewColorVisualizer

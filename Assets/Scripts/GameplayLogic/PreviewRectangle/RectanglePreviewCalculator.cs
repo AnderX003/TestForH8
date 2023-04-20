@@ -2,7 +2,7 @@
 using Helpers.ExtensionsAndDS;
 using UnityEngine;
 
-namespace GameplayObjects.PreviewRectangle
+namespace GameplayLogic.PreviewRectangle
 {
     [Serializable]
     public class RectanglePreviewCalculator

@@ -2,7 +2,7 @@
 using Helpers.Springs;
 using UnityEngine;
 
-namespace GameplayObjects.PreviewRectangle
+namespace GameplayLogic.PreviewRectangle
 {
     [Serializable]
     public class RectanglePreviewSprings

@@ -1,4 +1,4 @@
-﻿using GameplayObjects;
+﻿using GameplayLogic;
 using Helpers.Pooling;
 
 namespace SceneManagement.Pools

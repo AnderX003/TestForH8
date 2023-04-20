@@ -4,7 +4,7 @@ using SceneManagement;
 using TMPro;
 using UnityEngine;
 
-namespace GameplayObjects
+namespace GameplayLogic
 {
     public class Cell : MonoBehaviour, IPoolable
     {
