@@ -1,6 +1,7 @@
 ﻿using System;
 using GameplayLogic;
 using GameplayLogic.Cells;
+using GameplayLogic.PlacedRectangles;
 using GameplayLogic.PreviewRectangle;
 using SceneManagement;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace TouchLogic
         private Cell startCell;
         private Cell currentCell;
         private bool canPlace;
+        private RectanglesPlacer rectanglesPlacer;
 
         public void Init(
             RectanglePreview rectanglePreview,
@@ -23,10 +25,13 @@ namespace TouchLogic
         {
             this.placingChecker = placingChecker;
             this.rectanglePreview = rectanglePreview;
+            rectanglesPlacer = SceneC.Instance.RectanglesPlacer;
             touchReceiver.Init(SceneC.Instance.CameraC.Camera);
             touchReceiver.OnTouchedCell += OnTouchedCell;
             touchReceiver.OnChangedCell += OnChangedCell;
             touchReceiver.OnUnTouchedCell += OnUnTouchedCell;
+            touchReceiver.OnClickPlacedCell += OnClickPlacedCell;
+            touchReceiver.OnDoubleClickPlacedCell += OnDoubleClickPlacedCell;
         }
 
         public void Update()
@@ -56,10 +61,19 @@ namespace TouchLogic
             rectanglePreview.Hide();
             if (canPlace)
             {
-                var sceneC = SceneC.Instance;
-                sceneC.RectanglesPlacer.Place(startCell, currentCell);
-                sceneC.GameGrid.CheckWin();
+                rectanglesPlacer.Place(startCell, currentCell);
+                SceneC.Instance.GameGrid.CheckWin();
             }
+        }
+
+        private void OnClickPlacedCell(PlacedCell placedCell)
+        {
+            rectanglesPlacer.DeletePreview(placedCell.AttachedRectangle);
+        }
+
+        private void OnDoubleClickPlacedCell(PlacedCell placedCell)
+        {
+            rectanglesPlacer.Delete(placedCell.AttachedRectangle);
         }
     }
 }

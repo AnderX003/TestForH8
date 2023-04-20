@@ -48,8 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualizer:
     scaleHideDamping: 1
-    scaleHideFrequency: 60
-    scalePunchVelocity: 1
+    scaleHideFrequency: 20
+    scaleHideVelocity: 2
+    scalePunchVelocity: 2
     scaleSpring:
       <Frequency>k__BackingField: 15
       <Damping>k__BackingField: 0.35

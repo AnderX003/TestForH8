@@ -10,6 +10,7 @@ namespace GameplayLogic.PlacedRectangles
         [SerializeField] private PlacedCellVisualizer visualizer;
         [SerializeField] private new Collider collider;
 
+        public PlacedRectangle AttachedRectangle { get; private set; }
         Transform IPoolable.Transform => transform;
         GameObject IPoolable.GameObject => gameObject;
 
@@ -24,8 +25,10 @@ namespace GameplayLogic.PlacedRectangles
             visualizer.Update();
         }
 
-        public void Enable(Vector3 position)
+        public void Enable(PlacedRectangle placedRectangle, Vector3 position)
         {
+            SceneC.Instance.PlacedCellsFinder.Register(this, collider);
+            AttachedRectangle = placedRectangle;
             transform.localPosition = position;
             collider.enabled = true;
             visualizer.ResetOnEnable();
@@ -55,6 +58,14 @@ namespace GameplayLogic.PlacedRectangles
         {
             yield return StartCoroutine(visualizer.Hide());
             SceneC.Instance.PoolsHolder.PlacedCellsPool.PushItem(this);
+        }
+
+        public IPoolable HideToPool(Transform poolParent)
+        {
+            SceneC.Instance.PlacedCellsFinder.Unregister(this, collider);
+            transform.SetParent(poolParent);
+            gameObject.SetActive(false);
+            return this;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace GameplayLogic.PlacedRectangles
             {
                 var placedCell = pool.PopItem();
                 placedCells[x, y] = placedCell;
-                placedCell.Enable(cells[x, y].GetPosition());
+                placedCell.Enable(this, cells[x, y].GetPosition());
             }
             SceneC.Instance.StartCoroutine(ShowSequence(showInterval));
         }
@@ -86,7 +86,13 @@ namespace GameplayLogic.PlacedRectangles
 
         public void UnPlace(float hideInterval)
         {
-            var x1 = startCell.GridCell.X;
+            for (int x = 0; x < size.x; x++)
+            for (int y = 0; y < size.y; y++)
+            {
+                placedCells[x, y].Disable();
+                cells[x, y].UnBindPlacedRectangle();
+            }
+            /*var x1 = startCell.GridCell.X;
             var y1 = startCell.GridCell.Y;
             var x2 = endCell.GridCell.X;
             var y2 = endCell.GridCell.Y;
@@ -99,7 +105,7 @@ namespace GameplayLogic.PlacedRectangles
             {
                 placedCells[xLocal, yLocal].Disable();
                 cells[x, y].UnBindPlacedRectangle();
-            }
+            }*/
             SceneC.Instance.StartCoroutine(HideSequence(hideInterval));
         }
 
@@ -114,8 +120,8 @@ namespace GameplayLogic.PlacedRectangles
             var dy = Math.Sign(y2 - y1);
             if (dy == 0) dy = 1;
             if (dx == 0) dx = 1;
-            for (int x = x1, xLocal = 0; x != x2 + dx; x += dx, xLocal++)
-            for (int y = y1, yLocal = 0; y != y2 + dy; y += dy, yLocal++)
+            for (int x = x1, xLocal = size.x - 1; x != x2 + dx; x += dx, xLocal--)
+            for (int y = y1, yLocal = size.y - 1; y != y2 + dy; y += dy, yLocal--)
             {
                 placedCells[xLocal, yLocal].Hide();
                 yield return wait;

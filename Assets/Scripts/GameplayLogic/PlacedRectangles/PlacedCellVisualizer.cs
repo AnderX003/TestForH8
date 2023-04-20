@@ -10,6 +10,7 @@ namespace GameplayLogic.PlacedRectangles
     {
         [SerializeField] private float scaleHideDamping;
         [SerializeField] private float scaleHideFrequency;
+        [SerializeField] private float scaleHideVelocity;
         [SerializeField] private float scalePunchVelocity;
         [SerializeField] private SpringFloatHandler scaleSpring;
         [SerializeField] private Transform scaleObject;
@@ -54,6 +55,7 @@ namespace GameplayLogic.PlacedRectangles
             scaleSpring.GoalValue = 0f;
             scaleSpring.Damping = scaleHideDamping;
             scaleSpring.Frequency = scaleHideFrequency;
+            scaleSpring.Velocity += scaleHideVelocity;
 
             do
             {

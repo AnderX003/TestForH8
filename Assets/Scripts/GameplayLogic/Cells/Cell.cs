@@ -32,7 +32,6 @@ namespace GameplayLogic.Cells
         Transform IPoolable.Transform => transform;
         GameObject IPoolable.GameObject => gameObject;
 
-
         public void Init(IGridCell gridCell)
         {
             this.gridCell = gridCell;
@@ -47,7 +46,6 @@ namespace GameplayLogic.Cells
         public void Arrange(CellPlacementConfig config)
         {
             var offset = gridCell.Coords * config.Step;
-            //transform.position = config.StartPos + config.Step * gridIndex;
             transform.position =
                 new Vector3(config.StartPos.y, 0f, config.StartPos.x) +
                 new Vector3(offset.y, 0f, offset.x);
