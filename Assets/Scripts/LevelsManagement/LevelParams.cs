@@ -1,4 +1,4 @@
-﻿using FieldGeneration;
+﻿using GridGeneration;
 using UnityEngine;
 
 namespace LevelsManagement

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FieldGeneration
+namespace GridGeneration
 {
     public class AlgorithmTest : MonoBehaviour
     {
@@ -10,7 +10,7 @@ namespace FieldGeneration
         {
             for (int i = 0; i < 20; i++)
             {
-                var field = new Field(
+                var field = new Grid(
                     new Vector2Int(Random.Range(4, 9), Random.Range(4, 9)));
                 field.DivideToRectangles(generationLimits);
                 Debug.Log(field.ToString());

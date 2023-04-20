@@ -1,7 +1,6 @@
 ﻿using System;
-using FieldGeneration;
+using GridGeneration;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace LevelsManagement
 {
@@ -27,21 +26,11 @@ namespace LevelsManagement
             };
         }
 
-        public LevelParams GetNextLevelParams()
+        public void CalculateNextGridSize()
         {
-            return new LevelParams
-            {
-                GridSize = CalculateNextGridSize(),
-                GenerationLimits = generationLimits
-            };
-        }
-
-        public Vector2Int CalculateNextGridSize()
-        {
-            var result = gridSize;
             if (gridSize.x <= maxGridSize.x && gridSize.y <= maxGridSize.y)
             {
-                if (gridSize.x < gridSize.y)
+                if (gridSize.x >= gridSize.y)
                 {
                     gridSize.x++;
                 }
@@ -50,7 +39,6 @@ namespace LevelsManagement
                     gridSize.y++;
                 }
             }
-            return result;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FieldGeneration
+namespace GridGeneration
 {
     [CreateAssetMenu(fileName = "rectangleGenerationLimits", menuName = "SO/Rectangle Generation Limits")]
     public class RectangleGenerationLimits : ScriptableObject

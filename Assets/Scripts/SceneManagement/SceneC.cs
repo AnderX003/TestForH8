@@ -1,6 +1,9 @@
-﻿using FieldGeneration;
+﻿using GameplayObjects;
+using GameplayObjects.PreviewRectangle;
 using Helpers;
 using LevelsManagement;
+using SceneManagement.Pools;
+using TouchLogic;
 using UI;
 using UnityEngine;
 
@@ -9,6 +12,13 @@ namespace SceneManagement
     public class SceneC : MonoSingleton<SceneC>
     {
         [field: SerializeField] public UIHolder UIHolder { get; private set; }
+        [field: SerializeField] public PoolsHolder PoolsHolder { get; private set; }
+        [field: SerializeField] public CellsFinder CellsFinder { get; private set; }
+        [field: SerializeField] public CameraC CameraC { get; private set; }
+        [field: SerializeField] public GameGrid GameGrid { get; private set; }
+
+        [SerializeField] private RectanglePreview rectanglePreview;
+        [SerializeField] private TouchHandler touchHandler;
 
         public GameLoopC GameLoopC { get; private set; }
 
@@ -18,12 +28,22 @@ namespace SceneManagement
 
             GameLoopC.Init();
             UIHolder.Init();
-            
-            var levelParams = LevelsC.Instance.GetLevelParams();
-            var field = new Field(levelParams.GridSize);
-            field.DivideToRectangles(levelParams.GenerationLimits);
+            PoolsHolder.Init();
+            CellsFinder.Init();
+            CameraC.Init();
+            rectanglePreview.Init();
 
-            Debug.Log(field.ToString());
+            var levelParams = LevelsC.Instance.GetLevelParams();
+            GameGrid.Init(levelParams);
+
+            var placingChecker = new RectanglePlacingChecker();
+            placingChecker.Init(GameGrid);
+            touchHandler.Init(rectanglePreview, placingChecker);
+        }
+
+        private void Update()
+        {
+            touchHandler.Update();
         }
     }
 }

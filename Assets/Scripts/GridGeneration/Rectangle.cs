@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
-namespace FieldGeneration
+namespace GridGeneration
 {
     public class Rectangle : IGridRectangle
     {
@@ -15,6 +17,7 @@ namespace FieldGeneration
         private Vector2Int rootCoord;
         private Vector2Int size;
 
+        public int CellsAmount => cells.Length;
         public Vector2Int RootCoord => rootCoord;
         public Vector2Int Size => size;
         public IGridCell MainCell => mainCell;
@@ -100,22 +103,31 @@ namespace FieldGeneration
         {
             cells = new GridCell[size.x, size.y];
             for (int x = rootCoord.x; x < rootCoord.x + size.x; x++)
+            for (var y = rootCoord.y; y < rootCoord.y + size.y; y++)
             {
-                for (var y = rootCoord.y; y < rootCoord.y + size.y; y++)
-                {
-                    var localCoords = LocalCoords(x, y);
-                    var cell = grid[x, y];
-                    cell.AttachRectangle(this);
-                    cells[localCoords.x, localCoords.y] = cell;
-                }
+                var localCoords = LocalCoords(x, y);
+                var cell = grid[x, y];
+                cell.AttachRectangle(this);
+                cells[localCoords.x, localCoords.y] = cell;
             }
         }
 
         private void PickMainCell()
         {
-            mainCell = cells[
-                Random.Range(0, Size.x),
-                Random.Range(0, Size.y)];
+            if (mainCell != null)
+            {
+                mainCell.IsMain = false;
+            }
+
+            mainCell = Random.Range(0, 4) switch
+            {
+                0 => cells[0, 0],
+                1 => cells[size.x - 1, 0],
+                2 => cells[0, size.y - 1],
+                3 => cells[size.x - 1, size.y - 1],
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            mainCell.IsMain = true;
         }
 
         public enum AddSide : byte { Down, Right, Left }

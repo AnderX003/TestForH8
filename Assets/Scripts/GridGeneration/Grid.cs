@@ -1,30 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace FieldGeneration
+namespace GridGeneration
 {
-    public class Field
+    public class Grid
     {
         private Vector2Int gridSize;
         private List<Rectangle> rectangles;
-        private GridCell[,] grid;
+        private GridCell[,] cells;
 
         public IEnumerable<IGridRectangle> Rectangles => rectangles;
-        public IGridCell[,] Grid => grid;
+        public IGridCell[,] Cells => cells;
+        public Vector2Int GridSize => gridSize;
 
-        public Field(Vector2Int gridSize)
+        public Grid(Vector2Int gridSize)
         {
             this.gridSize = gridSize;
-            grid = new GridCell[gridSize.x, gridSize.y];
+            cells = new GridCell[gridSize.x, gridSize.y];
             for (int x = 0; x < gridSize.x; x++)
+            for (var y = 0; y < gridSize.y; y++)
             {
-                for (var y = 0; y < gridSize.y; y++)
-                {
-                    grid[x, y] = new GridCell(x, y);
-                }
+                cells[x, y] = new GridCell(x, y);
             }
         }
 
@@ -38,17 +36,15 @@ namespace FieldGeneration
         private void DivideToBasicRectangles(RectangleGenerationLimits rectangleLimits)
         {
             for (int x = 0; x < gridSize.x; x++)
+            for (var y = 0; y < gridSize.y; y++)
             {
-                for (var y = 0; y < gridSize.y; y++)
-                {
-                    var cell = grid[x, y];
-                    if (cell.IsOccupied) continue;
-                    if (CellHasNoWays(cell)) continue;
+                var cell = cells[x, y];
+                if (cell.IsOccupied) continue;
+                if (CellHasNoWays(cell)) continue;
 
-                    var rectangle = new Rectangle(cell);
-                    rectangle.Build(grid, gridSize, rectangleLimits);
-                    rectangles.Add(rectangle);
-                }
+                var rectangle = new Rectangle(cell);
+                rectangle.Build(cells, gridSize, rectangleLimits);
+                rectangles.Add(rectangle);
             }
         }
 
@@ -56,7 +52,7 @@ namespace FieldGeneration
         {
             for (var y = 0; y < gridSize.y; y++)
             {
-                var cell = grid[gridSize.x - 1, y];
+                var cell = cells[gridSize.x - 1, y];
                 if (cell.IsOccupied) continue;
 
                 JoinSingleCell(cell);
@@ -87,7 +83,7 @@ namespace FieldGeneration
         {
             if (x < 0 || x >= gridSize.x ||
                 y < 0 || y >= gridSize.y) return null;
-            return grid[x, y];
+            return cells[x, y];
         }
 
         private void JoinSingleCell(GridCell cell)
@@ -99,15 +95,15 @@ namespace FieldGeneration
 
             if (upCell != null && upCell.Rectangle.Size.y == 1)
             {
-                upCell.Rectangle.AddExtraCell(grid, Rectangle.AddSide.Down);
+                upCell.Rectangle.AddExtraCell(cells, Rectangle.AddSide.Down);
             }
             else if (leftCell != null && leftCell.Rectangle.Size.x == 1)
             {
-                leftCell.Rectangle.AddExtraCell(grid, Rectangle.AddSide.Right);
+                leftCell.Rectangle.AddExtraCell(cells, Rectangle.AddSide.Right);
             }
             else if (rightCell != null && rightCell.Rectangle.Size.x == 1)
             {
-                rightCell.Rectangle.AddExtraCell(grid, Rectangle.AddSide.Left);
+                rightCell.Rectangle.AddExtraCell(cells, Rectangle.AddSide.Left);
             }
             else
             {
@@ -123,7 +119,7 @@ namespace FieldGeneration
             {
                 for (var y = 0; y < gridSize.y; y++)
                 {
-                    msg.Append($"{grid[x, y].Rectangle?.Id.ToString() ?? "-"}\t");
+                    msg.Append($"{cells[x, y].Rectangle?.Id.ToString() ?? "-"}\t");
                 }
                 msg.Append("\n");
             }
