@@ -1242,6 +1242,16 @@ MonoBehaviour:
   <RectanglesPlacer>k__BackingField:
     showInterval: 0.05
     hideInterval: 0.05
+    colors:
+      availableColors:
+      - {r: 0.3272191, g: 0.83800006, b: 0.3272191, a: 1}
+      - {r: 0.9490196, g: 0.5687662, b: 0.047450993, a: 1}
+      - {r: 1, g: 0.39999998, b: 0.39999998, a: 1}
+      - {r: 1, g: 0.5058824, b: 0.9155596, a: 1}
+      - {r: 0.67058825, g: 0.38431373, b: 0.8745098, a: 1}
+      - {r: 0.5058824, g: 0.5214096, b: 1, a: 1}
+      - {r: 0.5058824, g: 0.80988735, b: 1, a: 1}
+      - {r: 1, g: 0.94, b: 0.39999998, a: 1}
   <CameraC>k__BackingField: {fileID: 1956904168}
   <GameGrid>k__BackingField:
     cellsParent: {fileID: 1719033074}
@@ -1255,7 +1265,7 @@ MonoBehaviour:
       rectanglesLayer:
         serializedVersion: 2
         m_Bits: 128
-      doubleClickTimeThreshold: 0.3
+      doubleClickTimeThreshold: 0.4
 --- !u!4 &1484651369
 Transform:
   m_ObjectHideFlags: 0

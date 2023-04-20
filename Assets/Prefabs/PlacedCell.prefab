@@ -56,6 +56,7 @@ MonoBehaviour:
       <Damping>k__BackingField: 0.35
       <Unscaled>k__BackingField: 0
     scaleObject: {fileID: 1852566833243997450}
+    renderer: {fileID: 1041516897059000098}
   collider: {fileID: 1852566834017058964}
 --- !u!1 &1852566833243997451
 GameObject:
@@ -211,6 +212,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f310fd60edb34754e8f7beb7047e2342, type: 3}
+--- !u!23 &1041516897059000098 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: f310fd60edb34754e8f7beb7047e2342, type: 3}
+  m_PrefabInstance: {fileID: 1852566833851683750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2179490178766943309 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f310fd60edb34754e8f7beb7047e2342, type: 3}

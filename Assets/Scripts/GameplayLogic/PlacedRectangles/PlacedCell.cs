@@ -39,9 +39,9 @@ namespace GameplayLogic.PlacedRectangles
             collider.enabled = false;
         }
 
-        public void Show()
+        public void Show(Color color)
         {
-            visualizer.Show();
+            visualizer.Show(color);
         }
 
         public void PunchScale()

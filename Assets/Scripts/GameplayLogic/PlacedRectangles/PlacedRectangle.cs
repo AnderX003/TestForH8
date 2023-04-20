@@ -13,9 +13,11 @@ namespace GameplayLogic.PlacedRectangles
         private readonly Cell endCell;
         private readonly Cell[,] cells;
         private readonly PlacedCell[,] placedCells;
+        private Color color;
 
-        public PlacedRectangle(GameGrid gameGrid, Cell startCell, Cell endCell)
+        public PlacedRectangle(GameGrid gameGrid, Cell startCell, Cell endCell, Color color)
         {
+            this.color = color;
             this.startCell = startCell;
             this.endCell = endCell;
             var startGridCell = startCell.GridCell;
@@ -77,7 +79,7 @@ namespace GameplayLogic.PlacedRectangles
             for (int x = x1, xLocal = 0; x != x2 + dx; x += dx, xLocal++)
             for (int y = y1, yLocal = 0; y != y2 + dy; y += dy, yLocal++)
             {
-                placedCells[xLocal, yLocal].Show();
+                placedCells[xLocal, yLocal].Show(color);
                 yield return wait;
             }
         }

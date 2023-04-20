@@ -14,6 +14,7 @@ namespace GameplayLogic.PlacedRectangles
         [SerializeField] private float scalePunchVelocity;
         [SerializeField] private SpringFloatHandler scaleSpring;
         [SerializeField] private Transform scaleObject;
+        [SerializeField] private MeshRenderer renderer;
 
         private float scaleDefaultDamping;
         private float scaleDefaultFrequency;
@@ -40,9 +41,10 @@ namespace GameplayLogic.PlacedRectangles
             scaleSpring.Frequency = scaleDefaultFrequency;
         }
 
-        public void Show()
+        public void Show(Color color)
         {
             scaleSpring.GoalValue = 1f;
+            renderer.material.color = color;
         }
 
         public void PunchScale()

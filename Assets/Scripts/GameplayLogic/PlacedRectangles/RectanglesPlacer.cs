@@ -11,6 +11,7 @@ namespace GameplayLogic.PlacedRectangles
     {
         [SerializeField] private float showInterval;
         [SerializeField] private float hideInterval;
+        [SerializeField] private RectanglesColors colors;
 
         private List<PlacedRectangle> rectangles;
         private GameGrid grid;
@@ -19,11 +20,13 @@ namespace GameplayLogic.PlacedRectangles
         {
             grid = SceneC.Instance.GameGrid;
             rectangles = new List<PlacedRectangle>(grid.GridRectanglesCount);
+            colors.Init();
         }
 
         public void Place(Cell startCell, Cell currentCell)
         {
-            var rectangle = new PlacedRectangle(grid, startCell, currentCell);
+            var color = colors.Next();
+            var rectangle = new PlacedRectangle(grid, startCell, currentCell, color);
             rectangles.Add(rectangle);
             rectangle.Place(showInterval);
         }
