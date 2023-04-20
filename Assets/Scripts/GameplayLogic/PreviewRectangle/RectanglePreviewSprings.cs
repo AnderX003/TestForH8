@@ -1,6 +1,7 @@
 ﻿using System;
 using Helpers.Springs;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameplayLogic.PreviewRectangle
 {
@@ -11,8 +12,8 @@ namespace GameplayLogic.PreviewRectangle
         [SerializeField] private float hideScaleFrequency;
         [SerializeField] private SpringVector2Handler scaleSpring;
         [SerializeField] private SpringVector3Handler positionSpring;
-        [SerializeField] private Transform PositionObject;
-        [SerializeField] private SpriteRenderer ScaleSprite;
+        [SerializeField] private Transform positionObject;
+        [SerializeField] private SpriteRenderer scaleSprite;
 
         private float defaultScaleDamping;
         private float defaultScaleFrequency;
@@ -21,17 +22,22 @@ namespace GameplayLogic.PreviewRectangle
         {
             defaultScaleDamping = scaleSpring.Damping;
             defaultScaleFrequency = scaleSpring.Frequency;
+
+            positionSpring.Velocity = Vector3.zero;
+            positionObject.localPosition = Vector3.zero;
+            scaleSpring.Velocity = Vector2.zero;
+            scaleSprite.size = Vector2.zero;
         }
 
         public void Update()
         {
-            positionSpring.Value = PositionObject.localPosition;
+            positionSpring.Value = positionObject.localPosition;
             positionSpring.Update();
-            PositionObject.localPosition = positionSpring.Value;
+            positionObject.localPosition = positionSpring.Value;
 
-            scaleSpring.Value = ScaleSprite.size;
+            scaleSpring.Value = scaleSprite.size;
             scaleSpring.Update();
-            ScaleSprite.size = scaleSpring.Value;
+            scaleSprite.size = scaleSpring.Value;
         }
 
         public void ResetOnShow()
@@ -40,7 +46,7 @@ namespace GameplayLogic.PreviewRectangle
             scaleSpring.Velocity = Vector2.zero;
             scaleSpring.Damping = defaultScaleDamping;
             scaleSpring.Frequency = defaultScaleFrequency;
-            ScaleSprite.size = Vector2.zero;
+            scaleSprite.size = Vector2.zero;
         }
 
         public void Hide()
@@ -62,7 +68,7 @@ namespace GameplayLogic.PreviewRectangle
 
         public void SetStartPosition()
         {
-            PositionObject.localPosition = positionSpring.GoalValue;
+            positionObject.localPosition = positionSpring.GoalValue;
         }
     }
 }

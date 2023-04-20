@@ -14,7 +14,6 @@ namespace SceneManagement
     public class SceneC : MonoSingleton<SceneC>
     {
         [field: SerializeField] public UIHolder UIHolder { get; private set; }
-        [field: SerializeField] public PoolsHolder PoolsHolder { get; private set; }
         [field: SerializeField] public CellsFinder CellsFinder { get; private set; }
         [field: SerializeField] public PlacedCellsFinder PlacedCellsFinder { get; private set; }
         [field: SerializeField] public RectanglesPlacer RectanglesPlacer { get; private set; }
@@ -32,7 +31,6 @@ namespace SceneManagement
 
             GameLoopC.Init();
             UIHolder.Init();
-            PoolsHolder.Init();
             CellsFinder.Init();
             PlacedCellsFinder.Init();
             CameraC.Init();

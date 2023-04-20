@@ -1,6 +1,8 @@
-﻿using GameplayLogic.PlacedRectangles;
+﻿using System;
+using GameplayLogic.PlacedRectangles;
 using GridGeneration;
 using Helpers.Pooling;
+using LevelsManagement;
 using SceneManagement;
 using TMPro;
 using UnityEngine;
@@ -13,6 +15,7 @@ namespace GameplayLogic.Cells
         [SerializeField] private TMP_Text numberText;
 
         private IGridCell gridCell;
+        private Action onUnloadingLevelAction;
 
         public IGridCell GridCell => gridCell;
         public bool IsMain => gridCell.IsMain;
@@ -35,6 +38,8 @@ namespace GameplayLogic.Cells
         public void Init(IGridCell gridCell)
         {
             this.gridCell = gridCell;
+            onUnloadingLevelAction ??= OnUnloadingLevel;
+            LevelsC.Instance.OnUnloadingLevel += onUnloadingLevelAction;
             SceneC.Instance.CellsFinder.Register(this, collider);
             if (gridCell.IsMain)
             {
@@ -57,9 +62,19 @@ namespace GameplayLogic.Cells
             numberText.SetText(RectangleSize.ToString());
         }
 
+        public IPoolable Setup(Transform parent)
+        {
+            InPlacedRectangle = false;
+            PlacedRectangle = null;
+            numberText.gameObject.SetActive(false);
+            transform.SetParent(parent);
+            gameObject.SetActive(true);
+            return this;
+        }
+
         public IPoolable HideToPool(Transform poolParent)
         {
-            SceneC.Instance.CellsFinder.Unregister(this, collider);
+            SceneC.Instance?.CellsFinder.Unregister(this, collider);
             transform.SetParent(poolParent);
             gameObject.SetActive(false);
             return this;
@@ -85,6 +100,12 @@ namespace GameplayLogic.Cells
         {
             InPlacedRectangle = false;
             PlacedRectangle = null;
+        }
+
+        private void OnUnloadingLevel()
+        {
+            LevelsC.Instance.OnUnloadingLevel -= onUnloadingLevelAction;
+            LevelsC.Instance.PoolsHolder.CellsPool.PushItem(this);
         }
     }
 }

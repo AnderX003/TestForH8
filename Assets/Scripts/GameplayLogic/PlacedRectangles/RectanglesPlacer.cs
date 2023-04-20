@@ -12,6 +12,7 @@ namespace GameplayLogic.PlacedRectangles
         [SerializeField] private float showInterval;
         [SerializeField] private float hideInterval;
         [SerializeField] private RectanglesColors colors;
+        [SerializeField] private Transform cellsParent;
 
         private List<PlacedRectangle> rectangles;
         private GameGrid grid;
@@ -28,7 +29,7 @@ namespace GameplayLogic.PlacedRectangles
             var color = colors.Next();
             var rectangle = new PlacedRectangle(grid, startCell, currentCell, color);
             rectangles.Add(rectangle);
-            rectangle.Place(showInterval);
+            rectangle.Place(cellsParent, showInterval);
         }
 
         public void DeletePreview(PlacedRectangle rectangle)

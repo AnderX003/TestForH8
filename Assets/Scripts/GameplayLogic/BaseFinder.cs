@@ -8,7 +8,7 @@ namespace GameplayLogic
 
         public void Register(TValue value, TKey key)
         {
-            dictionary.Add(key, value);
+            dictionary[key] = value;
         }
 
         public void Unregister(TValue value, TKey key)

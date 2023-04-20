@@ -59,10 +59,11 @@ namespace GameplayLogic.PlacedRectangles
             scaleSpring.Frequency = scaleHideFrequency;
             scaleSpring.Velocity += scaleHideVelocity;
 
+            const float epsilon = 0.01f;
             do
             {
                 yield return null;
-            } while (scaleSpring.Velocity != 0f);
+            } while (Mathf.Abs(scaleSpring.Velocity) > epsilon);
         }
     }
 }

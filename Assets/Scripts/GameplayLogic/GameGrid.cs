@@ -46,7 +46,7 @@ namespace GameplayLogic
         private void CreateCells()
         {
             gameCells = new Cell[gridSize.x, gridSize.y];
-            var pool = SceneC.Instance.PoolsHolder.CellsPool;
+            var pool = LevelsC.Instance.PoolsHolder.CellsPool;
             for (int x = 0; x < gridSize.x; x++)
             for (var y = 0; y < gridSize.y; y++)
             {

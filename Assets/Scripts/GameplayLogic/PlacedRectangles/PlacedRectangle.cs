@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using GameplayLogic.Cells;
+using LevelsManagement;
 using SceneManagement;
 using UnityEngine;
 
@@ -52,13 +53,13 @@ namespace GameplayLogic.PlacedRectangles
             }
         }
 
-        public void Place(float showInterval)
+        public void Place(Transform cellsParent, float showInterval)
         {
-            var pool = SceneC.Instance.PoolsHolder.PlacedCellsPool;
+            var pool = LevelsC.Instance.PoolsHolder.PlacedCellsPool;
             for (int x = 0; x < size.x; x++)
             for (int y = 0; y < size.y; y++)
             {
-                var placedCell = pool.PopItem();
+                var placedCell = pool.PopItem(cellsParent);
                 placedCells[x, y] = placedCell;
                 placedCell.Enable(this, cells[x, y].GetPosition());
             }
