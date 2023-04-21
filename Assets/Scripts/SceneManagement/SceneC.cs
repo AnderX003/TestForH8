@@ -4,7 +4,6 @@ using GameplayLogic.PlacedRectangles;
 using GameplayLogic.PreviewRectangle;
 using Helpers;
 using LevelsManagement;
-using SceneManagement.Pools;
 using TouchLogic;
 using UI;
 using UnityEngine;

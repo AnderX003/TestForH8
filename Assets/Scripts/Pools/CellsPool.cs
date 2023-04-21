@@ -1,7 +1,7 @@
 ﻿using GameplayLogic.Cells;
 using Helpers.Pooling;
 
-namespace SceneManagement.Pools
+namespace Pools
 {
     public class CellsPool : BasePool<Cell>
     {

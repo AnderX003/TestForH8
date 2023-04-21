@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SceneManagement.Pools
+namespace Pools
 {
     [Serializable]
     public class PoolsHolder

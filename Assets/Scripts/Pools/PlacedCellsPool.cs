@@ -1,7 +1,7 @@
 ﻿using GameplayLogic.PlacedRectangles;
 using Helpers.Pooling;
 
-namespace SceneManagement.Pools
+namespace Pools
 {
     public class PlacedCellsPool : BasePool<PlacedCell>
     {

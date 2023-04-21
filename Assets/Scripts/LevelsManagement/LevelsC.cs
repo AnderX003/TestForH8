@@ -1,6 +1,6 @@
 ﻿using System;
 using Helpers;
-using SceneManagement.Pools;
+using Pools;
 using UnityEngine;
 
 namespace LevelsManagement
